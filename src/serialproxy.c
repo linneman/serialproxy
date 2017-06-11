@@ -165,7 +165,7 @@ static t_serialproxy* serialproxy_init()
   if( p ) {
     /* initialize event handler */
     memset( p, 0, sizeof(t_serialproxy) );
-    p->proxy = proxy_init();
+    p->proxy = proxy_init( p, "/home/ol/phy", "/home/ol/symlink" );
     if( p->proxy == NULL ) {
       serialproxy_kill( p );
       p = NULL;

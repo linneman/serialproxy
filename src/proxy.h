@@ -29,8 +29,12 @@ extern "C" {
     @{
  */
 
+/* forward declaration */
+struct s_serialproxy;
+
 /*! event type declaration */
 typedef struct s_proxy {
+  struct s_serialproxy*       p_serialproxy;                /*!< back reference to serialproxy instance */
   int                         pty_fdm;                      /*!< file descriptor of master side */
   int                         pty_fds;                      /*!< file descriptor of slave side */
   int                         phy_fd;                       /*!< physical device (UART) */
@@ -42,10 +46,14 @@ typedef struct s_proxy {
 /*!
  * initialize and start background proxy service
  *
+ * \param p_serialproxy pointer to serialproxy main state structure
+ * \param phy_filename physical (real) character device (proxy source)
+ * \param phy_simlink_name symlink name to pseudo terminal (proxy dest)
  * \return p instance data
  */
-t_proxy* proxy_init( void );
-
+t_proxy* proxy_init( struct s_serialproxy* p_serialproxy,
+                     const char* phy_filename,
+                     const char* pty_symlink_name );
 
 /*!
  * stop background proxy service and release its data
