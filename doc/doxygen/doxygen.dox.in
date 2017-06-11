@@ -1,0 +1,37 @@
+/**
+ * @mainpage
+ * Project Website: https://github.com/linneman/minicaller
+ *
+ * @verbinclude README
+ *
+ */
+
+/**
+ * @defgroup minicaller Simple Call Manager Daemon Sample Application
+ * @brief minicaller Version @VERSION@
+ *
+ * @defgroup serialproxy - a proxy daemon for serial line communication
+ * @brief serialproxy Version
+ *
+ * @section what_is_it What is serialproxy ?
+ */
+
+/**
+ * @page ssc_readme README
+ * @verbinclude README
+ */
+
+/**
+ * @page ssc_install INSTALL
+ * @verbinclude INSTALL
+ */
+
+/**
+ * @page ssc_license COPYING
+ * @verbinclude COPYING
+ */
+
+/**
+ * @page ssc_changelog ChangeLog
+ * @verbinclude ChangeLog
+ */

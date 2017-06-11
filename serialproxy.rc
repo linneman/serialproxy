@@ -1,0 +1,17 @@
+# sample configuration file for serialproxy
+# 2017/06 OL
+
+
+# TCP  address of serialproxy serving  control interface  for external
+# handler to public switched telephony network (modem).
+#
+# ATTENTION: Later on the client/server rules might be exchanged!
+
+proxy-crtl-address 127.0.0.1
+
+
+# TCP  port  of  serialproxy serving control  interface  for  external
+# handler  to  public  switched  telephony  network  (modem).  Specify
+# negative value to use unix domain socket /tmp/sipgateway.uds.
+
+proxy-crtl-port 5064
