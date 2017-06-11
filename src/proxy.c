@@ -19,12 +19,14 @@
 #include <proxy.h>
 #include <config.h>
 #include <sp_config.h>
+#include <sp_log.h>
 #include <olcutils/alloc.h>
 
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <termios.h>

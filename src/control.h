@@ -15,27 +15,45 @@
  *  limitations under the License.
  */
 
-#ifndef SERIALPROXY_H
-#define SERIALPROXY_H
+#ifndef CONTROL_H
+#define CONTROL_H
 
-#include <proxy.h>
-#include <control.h>
+#include <pthread.h>
+#include <intercom/server.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*! \file serialproxy.h
-    \brief serialproxy main data context
+/*! \file control.h
+    \brief control interface via TCP
     @{
  */
 
+/* forward declaration */
+struct s_serialproxy;
+
 /*! event type declaration */
-typedef struct s_serialproxy {
-  t_proxy*                    proxy;                        /*!< pointer to proxy service */
-  t_control*                  control;                      /*!< pointer to control server instance */
-  int                         termination_request;          /*!< terminate process when set to 1 */
-} t_serialproxy;
+typedef struct s_control {
+  struct s_serialproxy*       p_serialproxy;                /*!< back reference to serialproxy instance */
+  t_icom_server_state*        server;                       /*!< point to tcp/unix domain socket server instance */
+} t_control;
+
+
+/*!
+ * initialize and start background control server
+ *
+ * \return p instance data
+ */
+t_control* control_init( struct s_serialproxy* p_serialproxy );
+
+
+/*!
+ * stop control service and release its data
+ *
+ * \param p instance data to be released
+ */
+void control_kill( t_control* p );
 
 
 /*! @} */
@@ -44,4 +62,4 @@ typedef struct s_serialproxy {
 }
 #endif
 
-#endif /* #ifndef SERIALPROXY_H */
+#endif /* #ifndef CONTROL_H */

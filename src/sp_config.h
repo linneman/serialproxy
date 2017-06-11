@@ -18,6 +18,8 @@
 #ifndef SP_CONFIG_H
 #define SP_CONFIG_H
 
+#include <intercom/server.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -57,6 +59,45 @@ extern char g_proxy_crtl_address[SP_MAX_ADDR_LEN];
  * negative value to use unix domain socket e.g. /tmp/serialproxy.uds.
  */
 extern int g_proxy_crtl_port;
+
+
+/*!
+ * maximum allowed connections via TCP/IP or
+ * zero for disabling TCP/IP communication
+ */
+extern int  g_proxy_crtl_ip_max_connections;
+
+
+/*!
+ * served socket file or empty string when no socket file shall be served
+ */
+extern char g_proxy_crtl_socket_filename[SP_MAX_ADDR_LEN];
+
+
+/*!
+ * maximum allowed connections via Unix Domain Sockets
+ * or zero for disabling UDS communication
+ */
+extern int  g_proxy_crtl_socket_max_connections;
+
+
+/*!
+ * physical (real) character device (proxy source)
+ */
+extern char g_phy_filename[SP_MAX_ADDR_LEN];
+
+
+/*!
+ * symlink name to pseudo terminal (proxy dest)
+ */
+extern char g_pty_symlink_name[SP_MAX_ADDR_LEN];
+
+
+
+/*!
+ * retrieve pointers to server address specification table and table len
+ */
+void sp_get_server_decl_table( t_icom_server_decl** h_decl_table, int* p_len );
 
 
 /*!

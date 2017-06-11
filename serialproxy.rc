@@ -14,4 +14,33 @@ proxy-crtl-address 127.0.0.1
 # handler  to  public  switched  telephony  network  (modem).  Specify
 # negative value to use unix domain socket /tmp/sipgateway.uds.
 
-proxy-crtl-port 5064
+proxy-crtl-port 6000
+
+
+# Maximum allowed IP connections
+# Set to 0 to disalbe IP connectivity
+
+server-ip-max-connections 10
+
+
+# Unix Domain Socket device filename
+
+server-socket-filename /tmp/serialproxy.sock
+
+
+# Maximum allowed UDS connections
+# Set to 0 to disalbe UDS connectivity
+
+server-socket-max-connections 10
+
+
+# physical (real) character device (proxy source)
+# this would be in example the character device for an UART port
+
+phy-filename         /tmp/phy
+
+
+# symlink name to pseudo terminal (proxy dest)
+# from this file the application behind this proxy can read from and write to
+
+pty-symlink-name    /tmp/symlink

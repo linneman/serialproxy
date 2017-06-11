@@ -145,8 +145,15 @@ static void segfaulthandler( int sig_num )
 static void serialproxy_kill( t_serialproxy* p)
 {
   if( p ) {
-    if( p->proxy )
+    if( p->control ) {
+      sp_message( "%s, %d: stop control interface ...\n", __func__, __LINE__ );
+      control_kill( p->control );
+    }
+
+    if( p->proxy ) {
+      sp_message( "%s, %d: stop proxy ...\n", __func__, __LINE__ );
       proxy_kill( p->proxy );
+    }
 
     cul_free( p );
   }
@@ -165,13 +172,20 @@ static t_serialproxy* serialproxy_init()
   if( p ) {
     /* initialize event handler */
     memset( p, 0, sizeof(t_serialproxy) );
-    p->proxy = proxy_init( p, "/home/ol/phy", "/home/ol/symlink" );
+
+    p->proxy = proxy_init( p, g_phy_filename, g_pty_symlink_name );
     if( p->proxy == NULL ) {
       serialproxy_kill( p );
-      p = NULL;
+      return NULL;
+    }
+
+    p->control = control_init( p );
+    if( p->control == NULL ) {
+      serialproxy_kill( p );
+      return NULL;
     }
   } else {
-    sp_error( "%s: out of memory error!\n", __func__ );
+    sp_error( "%s, %d: out of memory error!\n", __func__, __LINE__ );
   }
 
   return p;
@@ -217,6 +231,9 @@ static int serialproxy( int argc, char* argv[] )
     if( ! (run_loop_cnt % 10) )
       sp_message("alive\n");
     ++run_loop_cnt;
+
+    if( run_loop_cnt > 300 )
+      break;
   }
 
 

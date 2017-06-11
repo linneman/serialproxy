@@ -37,6 +37,38 @@
 
 char g_proxy_crtl_address[SP_MAX_ADDR_LEN] = { "127.0.0.1" };
 int g_proxy_crtl_port = 6000;
+int g_proxy_crtl_ip_max_connections = 10;
+
+char g_proxy_crtl_socket_filename[SP_MAX_ADDR_LEN] = "/tmp/serialproxy.sock";
+int  g_proxy_crtl_socket_max_connections = 10;
+
+char g_phy_filename[SP_MAX_ADDR_LEN] = { "/tmp/phy" };
+char g_pty_symlink_name[SP_MAX_ADDR_LEN] = { "/tmp/symlink" };
+
+
+void sp_get_server_decl_table( t_icom_server_decl** h_decl_table, int* p_len )
+{
+  static t_icom_server_decl decl_table[2];
+  int i = 0;
+
+  if( g_proxy_crtl_ip_max_connections > 0 ) {
+    decl_table[i].addr.sock_family = AF_INET;
+    strncpy( decl_table[i].addr.address, g_proxy_crtl_address, SP_MAX_ADDR_LEN );
+    decl_table[i].addr.port = g_proxy_crtl_port;
+    decl_table[i].max_connections = g_proxy_crtl_ip_max_connections;
+    ++i;
+  }
+
+  if( g_proxy_crtl_socket_max_connections > 0 ) {
+    decl_table[i].addr.sock_family = AF_UNIX;
+    strncpy( decl_table[i].addr.address, g_proxy_crtl_socket_filename, SP_MAX_ADDR_LEN );
+    decl_table[i].max_connections = g_proxy_crtl_socket_max_connections;
+    ++i;
+  }
+
+  *h_decl_table = decl_table;
+  *p_len = i;
+}
 
 
 static void* free_string_val( void* p )
@@ -109,9 +141,54 @@ int sp_init_config(void)
     ln = hm_find( params, cstring_hash( "proxy-crtl-port" ) );
     if( ln ) {
       if( ! string2int( ln->val, & g_proxy_crtl_port, 0, 65535 ) ) {
-        sp_message("%s: overwrite default proxy control IP port with %d\n", __func__, g_proxy_crtl_port );
+        sp_message("%s: overwrite default proxy control IP port with %d\n",
+                   __func__, g_proxy_crtl_port );
       } else {
         sp_error("%s: could not parse IP proxy control port argument error!\n", __func__ );
+      }
+
+      ln = hm_find( params, cstring_hash( "server-ip-max-connections" ) );
+      if( ln ) {
+        if( ! string2int( ln->val, & g_proxy_crtl_ip_max_connections, 0, 20 ) ) {
+          sp_message("%s: overwrite default nr of max. IP connections %d\n",
+                     __func__, g_proxy_crtl_ip_max_connections );
+        } else {
+          sp_error("%s: could not parse nr of max. IP connections error!\n", __func__ );
+        }
+      }
+
+      ln = hm_find( params, cstring_hash( "server-socket-filename" ) );
+      if( ln ) {
+        string_tmp_cstring_from( ln->val, g_proxy_crtl_socket_filename,
+                                 sizeof( g_proxy_crtl_socket_filename ) );
+        sp_message("%s: overwrite default UDS filename with %s\n",
+                   __func__, g_proxy_crtl_socket_filename );
+      }
+
+      ln = hm_find( params, cstring_hash( "server-socket-max-connections" ) );
+      if( ln ) {
+        if( ! string2int( ln->val, & g_proxy_crtl_socket_max_connections, 0, 20 ) ) {
+          sp_message("%s: overwrite default nr of max. socket connections %d\n",
+                     __func__, g_proxy_crtl_socket_max_connections );
+        } else {
+          sp_error("%s: could not parse nr of max. socket connections error!\n", __func__ );
+        }
+      }
+
+      ln = hm_find( params, cstring_hash( "phy-filename" ) );
+      if( ln ) {
+        string_tmp_cstring_from( ln->val, g_phy_filename,
+                                 sizeof( g_phy_filename ) );
+        sp_message("%s: overwrite default physical device filename with %s\n",
+                   __func__, g_phy_filename );
+      }
+
+      ln = hm_find( params, cstring_hash( "pty-symlink-name" ) );
+      if( ln ) {
+        string_tmp_cstring_from( ln->val, g_pty_symlink_name,
+                                 sizeof( g_pty_symlink_name ) );
+        sp_message("%s: overwrite default symlink name to pseudo terminal with %s\n",
+                   __func__, g_pty_symlink_name );
       }
     }
 

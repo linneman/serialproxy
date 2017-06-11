@@ -4,6 +4,8 @@ serialproxy_SOURCES= \
 	serialproxy.h \
 	proxy.c \
 	proxy.h \
+	control.c \
+	control.h \
 	strutils.c \
 	strutils.h \
 	sp_config.c \
@@ -11,6 +13,7 @@ serialproxy_SOURCES= \
 	sp_log.c \
 	sp_log.h \
 	revision.c \
-	revision.h
+	revision.h \
+	common.h
 serialproxy_LDFLAGS = -lpthread $(libintercom_LIBS)
 serialproxy_CPPFLAGS = $(libintercom_CFLAGS)

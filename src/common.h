@@ -15,27 +15,28 @@
  *  limitations under the License.
  */
 
-#ifndef SERIALPROXY_H
-#define SERIALPROXY_H
-
-#include <proxy.h>
-#include <control.h>
+#ifndef SP_COMMON_H
+#define SP_COMMON_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*! \file serialproxy.h
-    \brief serialproxy main data context
+
+/*!
+    \file common.h
+    \brief common definitions
+
+    \addtogroup config
     @{
  */
 
-/*! event type declaration */
-typedef struct s_serialproxy {
-  t_proxy*                    proxy;                        /*!< pointer to proxy service */
-  t_control*                  control;                      /*!< pointer to control server instance */
-  int                         termination_request;          /*!< terminate process when set to 1 */
-} t_serialproxy;
+
+/*! maximum number of characters for fully qualified file names in daemon */
+#define SP_MAX_PATH          256
+#define SP_MAX_MSG_LEN       256                           /*!< maximum IPC message length */
+#define SP_MAX_BUF_MSGS      10                            /*!< maximum number of IPC messages in buffer */
+#define SP_MAX_ID_LEN        30                            /*!< maximum length of action (verb) id name */
 
 
 /*! @} */
@@ -44,4 +45,4 @@ typedef struct s_serialproxy {
 }
 #endif
 
-#endif /* #ifndef SERIALPROXY_H */
+#endif /* #ifndef SP_COMMON_H */
