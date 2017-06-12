@@ -26,6 +26,8 @@ extern "C" {
 
 /*! \file proxy.h
     \brief proxy between physical and virtual serial device
+
+    \addtogroup proxy
     @{
  */
 

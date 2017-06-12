@@ -1,0 +1,6 @@
+/**
+ * @ingroup serialproxy Proxy Daemon for Serial Line Communication
+ * @defgroup main Application Data
+ *
+ * Provides root application state and main function.
+ */

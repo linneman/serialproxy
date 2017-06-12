@@ -1,0 +1,15 @@
+/**
+ * @ingroup serialproxy Proxy Daemon for Serial Line Communication
+ * @defgroup control The Control Server
+ *
+ * The daemon  creates a server which  by default listens  to TCP port 6000  and to
+ * the  unix  domain socket  refered  by  /tmp/serialproxy.sock. The  corresponding
+ * implementation is located  under the source file control.c within  the call back
+ * handler 'crtl_server_event_handler'. You  can easily add more  commands for your
+ * needs there.
+ *
+ * All configuration data  is read from the configuration  text file serialproxy.rc
+ * which can be stored either locally  under the corresponding dot file or globally
+ * under /etc/serialproxy.rc
+ *
+ */

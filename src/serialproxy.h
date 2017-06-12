@@ -27,6 +27,8 @@ extern "C" {
 
 /*! \file serialproxy.h
     \brief serialproxy main data context
+
+    \addtogroup main
     @{
  */
 

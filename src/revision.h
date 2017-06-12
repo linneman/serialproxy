@@ -25,7 +25,7 @@ extern "C" {
 /*! \file revision.h
     \brief release string
 
-    \addtogroup utils utils
+    \addtogroup utils
     @{
  */
 

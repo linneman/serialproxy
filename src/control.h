@@ -27,6 +27,8 @@ extern "C" {
 
 /*! \file control.h
     \brief control interface via TCP
+
+    \addtogroup control
     @{
  */
 

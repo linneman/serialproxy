@@ -4,7 +4,7 @@ doc_DATA = $(docpkg)
 
 # install only man pages for most important functions and
 # data structures
-man3_MANS = man/man3/minicaller.h.3
+man3_MANS = man/man3/serialproxy.h.3
 
 $(docpkg): doxygen.stamp
 	tar chof - html | gzip -9 -c >$@

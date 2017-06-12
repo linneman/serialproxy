@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([minicaller], [git_full_version], [otto.linnemann@valeo.com])
+AC_INIT([serialproxy], [git_full_version], [otto.linnemann@valeo.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/serialproxy.c])

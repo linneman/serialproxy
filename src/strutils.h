@@ -28,7 +28,7 @@ extern "C" {
 /*! \file strutils.h
     \brief utility functions
 
-    \addtogroup utils utils
+    \addtogroup utils
     @{
  */
 

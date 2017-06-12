@@ -28,7 +28,7 @@ extern "C" {
 /*! \file sp_config.h
     \brief server configuration
 
-    \addtogroup config config
+    \addtogroup config
     @{
  */
 

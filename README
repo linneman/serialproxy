@@ -28,7 +28,7 @@ on    Github    for    [libcutils](https://github.com/linneman/libcutils)    and
 how to do this.
 
 ### Download and Compile on a Host System
-Compiling a  host version  of minicaller  is done in  the very  same way  as for
+Compiling a  host version of  serialproxy is  done in the  very same way  as for
 libcutils  and  libintercom  following  the  guidelines  of  the  free  software
 foundation:
 

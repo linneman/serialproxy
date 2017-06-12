@@ -26,7 +26,7 @@ extern "C" {
 /*! \file mc_log.h
     \brief logging
 
-    \addtogroup utils utils
+    \addtogroup utils
     @{
  */
 
