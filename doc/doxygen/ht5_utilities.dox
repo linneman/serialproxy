@@ -1,6 +1,0 @@
-/**
- * @ingroup serialproxy Proxy Daemon for Serial Line Communication
- * @defgroup utils Utility Functions
- *
- * Additional utility functions which have not been provided as a library yet.
- */

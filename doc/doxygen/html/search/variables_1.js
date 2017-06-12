@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['g_5fphy_5ffilename',['g_phy_filename',['../group__config.html#ga09f4498332e39cf96c90ab7ddd700b81',1,'g_phy_filename():&#160;sp_config.c'],['../group__config.html#ga09f4498332e39cf96c90ab7ddd700b81',1,'g_phy_filename():&#160;sp_config.c']]],
+  ['g_5fproxy_5fcrtl_5faddress',['g_proxy_crtl_address',['../group__config.html#ga9568632857ce9a34c7dfd6e738b9a71c',1,'g_proxy_crtl_address():&#160;sp_config.c'],['../group__config.html#ga9568632857ce9a34c7dfd6e738b9a71c',1,'g_proxy_crtl_address():&#160;sp_config.c']]],
+  ['g_5fproxy_5fcrtl_5fip_5fmax_5fconnections',['g_proxy_crtl_ip_max_connections',['../group__config.html#gac85725ade5b293f13932ce6afababb25',1,'g_proxy_crtl_ip_max_connections():&#160;sp_config.c'],['../group__config.html#gac85725ade5b293f13932ce6afababb25',1,'g_proxy_crtl_ip_max_connections():&#160;sp_config.c']]],
+  ['g_5fproxy_5fcrtl_5fport',['g_proxy_crtl_port',['../group__config.html#ga785e302005134eef0e0866a87f26326a',1,'g_proxy_crtl_port():&#160;sp_config.c'],['../group__config.html#ga785e302005134eef0e0866a87f26326a',1,'g_proxy_crtl_port():&#160;sp_config.c']]],
+  ['g_5fproxy_5fcrtl_5fsocket_5ffilename',['g_proxy_crtl_socket_filename',['../group__config.html#gaf988dc9d98b559a3b97a51879f1f0f2c',1,'g_proxy_crtl_socket_filename():&#160;sp_config.c'],['../group__config.html#gaf988dc9d98b559a3b97a51879f1f0f2c',1,'g_proxy_crtl_socket_filename():&#160;sp_config.c']]],
+  ['g_5fproxy_5fcrtl_5fsocket_5fmax_5fconnections',['g_proxy_crtl_socket_max_connections',['../group__config.html#gaca64bbaca951d7fcf7e64ec329c2224e',1,'g_proxy_crtl_socket_max_connections():&#160;sp_config.c'],['../group__config.html#gaca64bbaca951d7fcf7e64ec329c2224e',1,'g_proxy_crtl_socket_max_connections():&#160;sp_config.c']]],
+  ['g_5fpty_5fsymlink_5fname',['g_pty_symlink_name',['../group__config.html#ga42fbc0400c46703568b7d7cadb495707',1,'g_pty_symlink_name():&#160;sp_config.c'],['../group__config.html#ga42fbc0400c46703568b7d7cadb495707',1,'g_pty_symlink_name():&#160;sp_config.c']]],
+  ['g_5fsp_5frevision',['g_sp_revision',['../group__utils.html#gacbfd062ff3668e175cf60e9a97eebaa1',1,'g_sp_revision():&#160;revision.c'],['../group__utils.html#gacbfd062ff3668e175cf60e9a97eebaa1',1,'g_sp_revision():&#160;revision.c']]]
+];
