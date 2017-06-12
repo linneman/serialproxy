@@ -1,0 +1,121 @@
+# Proxy Daemon for Serial Line Communication
+
+## Object
+UART  interfaces are  still widely  used in  embedded system  applications today
+e.g.  with  respect  to  automotive  applications in  order  to  interconnect  a
+Linux  based embedded  CPU with  an CAN  Microcontroller. On  contrast to  Linux
+pipes  UART's  provide  a  bidirectional  communication.  As  a  consequence  an
+existing implementation which uses the  posix serial API cannot be transparently
+used  with  named  pipes  in  Linux  nor   can  it  make  use  of  socket  based
+communication  without changing  the  exting implemenation.  The present  sample
+application  illustrates how  to overcome  this problem  using [pseudo  terminal
+devices](https://en.wikipedia.org/wiki/Pseudoterminal).  This allows  in example
+to  transparently exchange  a  low level  transport layer  between  CAN and  CPU
+without  affecting an  application on  top of  it. The  implementation has  been
+inspired by  the article  [Using pseudo-terminals  (pty) to  control interactive
+programs](http://rachid.koucha.free.fr/tech_corner/pty_pdip.html).
+
+## How to build.
+### Build Dependencies
+In  addition  to  the  commonly  used Unix  system  libraries  and  build  tools
+such  as  libc,  pthreads  and  the  autobuild  suite,  serialproxy  depends  on
+two  utitily   libraries,  libcutils   and  libintercom  which   are  maintained
+by   the  same   author.   You  will   need  to   compile   and  install   these
+libraries  on  your  system  first.   The  libraries  are  both  provided  under
+the  license  terms  of  the   LGPL.  Refer  to  the  installation  instructions
+on    Github    for    [libcutils](https://github.com/linneman/libcutils)    and
+[libintercom](https://github.com/linneman/libintercom)  for further  explanation
+how to do this.
+
+### Download and Compile on a Host System
+Compiling a  host version  of minicaller  is done in  the very  same way  as for
+libcutils  and  libintercom  following  the  guidelines  of  the  free  software
+foundation:
+
+    git clone git://github.com/linneman/serialproxy.git
+    cd serialproxy
+
+    ./autoreconf -i # for config script generation
+
+    ./configure
+    make
+    make install # as root
+
+In case  you have  downloaded an  official release as  gzipped tarball  you will
+exclusively need the  last three commands since the configure  script is already
+delivered with stable releases.
+
+Pay attention to the fact that add  on libraries are per default installed under
+the directory  `/usr/local/lib` which is not  in the library path  on many linux
+distributions. Thus you  will need to put `/usr/local/lib` to  your library path
+e.g. by defining the enviroment variable
+
+    export LD_LIBRARY_PATH=/usr/local/lib.
+
+Alternatively,  you  can  edit  `/etc/ld.so.conf`  which  contains  the  default
+directories  searched.  Note  that  you  may  also  need  to  update  the  cache
+`/etc/ld.so.cache` by running ldconfig (as root or with sudo).
+
+### Compilation on OpenEmbedded
+Crosscompiling  serialproxy with  OpenEmbedded/Yocto is  started by  the command
+within the build shell where the build enviroment has been previously sourced:
+
+    bitbake serialproxy
+
+Refer in example to the OpenNAD platform for further information.
+
+
+## Fundamental Concepts
+The  serialproxy daemon  instantiates  a background  thread  which executes  the
+function 'proxy_handler' implemented in source  file proxy.c. This handler reads
+data from  two device  files, one  refers to  the physical  UART, the  other one
+refers to the master side of the pseudo terminal session which is created in the
+initialization phase in the same module. The read data is written to the other's
+descriptor after transferring lower to  upper characters to illustrates that the
+underlying data  stream can be in  fact altered. Furthermore a  symbolic link to
+the slave side of the pseudo terminal is created to be in example accessed by an
+existing application instead of directly writing and reading from the UART.
+
+Please note  that the current implementation  of serialproxy does not  setup the
+serial port  parameters. You need to  do this externally in  example by invoking
+the system command stty.
+
+The daemon  creates a server which  by default listens  to TCP port 6000  and to
+the  unix  domain socket  refered  by  /tmp/serialproxy.sock. The  corresponding
+implementation is located  under the source file control.c within  the call back
+handler 'crtl_server_event_handler'. You  can easily add more  commands for your
+needs there.
+
+All configuration data  is read from the configuration  text file serialproxy.rc
+which can be stored either locally  under the corresponding dot file or globally
+under /etc/serialproxy.rc
+
+Serialproxy  comes  with  a  default  configuration which  can  be  checked  and
+evaluated on an  arbitrary Linux host using the following  commands. You need to
+have socat  installed on  this machine  which is used  to create  another pseudo
+terminal device file for emulation of the UART:
+
+    socat -d -d pty,raw,echo=0,link=/tmp/phy pty,raw,echo=0,link=/tmp/test
+
+The above  socat command creates  two linked  pseudo terminal device  files, the
+file /tmp/phy is  accessed by serialproxy, the file /tmp/test  would be accessed
+by the user application. Use in example minicom to try this out by adjusting the
+minicom's serial device to /tmp/uart.
+
+Now start the serialproxy either from a  shell or via an startup script which is
+not part of this package. The daemon writes all logging information to syslog so
+make sure  you observe its  syslog output.  As indicated in  syslog, serialproxy
+creates a symbolic link to the pseudo terminal file it uses which is store using
+the  default configuration  to  /tmp/symlink. When  you open  up  a 2nd  minicom
+instance with  this device file, you  shall observe the input  from one terminal
+transformed to upper case characters on the other's terminal output.
+
+Of course you can directly access a 'physical' UART device file instead of using
+socat but not all Linux boxes are equipped with one these days. We decided to to
+focus on the socat based example for this reason instead.
+
+## License
+This implementation code stands under the terms of the
+[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+June 2017, Otto Linnemann

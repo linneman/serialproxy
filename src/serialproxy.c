@@ -231,9 +231,6 @@ static int serialproxy( int argc, char* argv[] )
     if( ! (run_loop_cnt % 10) )
       sp_message("alive\n");
     ++run_loop_cnt;
-
-    if( run_loop_cnt > 300 )
-      break;
   }
 
 
